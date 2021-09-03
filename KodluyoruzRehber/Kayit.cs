@@ -9,7 +9,15 @@ namespace KodluyoruzRehber
 
         public void Calistir(List<Kisi> kisiler)
         {
-            throw new NotImplementedException();
+            var kisi = new Kisi();
+            Console.Write("Lütfen isim giriniz             :");
+            kisi.Isim = Console.ReadLine();
+            Console.Write("Lütfen soyisim giriniz          :");
+            kisi.Soyisim = Console.ReadLine();
+            Console.Write("Lütfen telefon numarası giriniz :");
+            kisi.Telefon = Console.ReadLine();
+            kisiler.Add(kisi);
+
         }
     }
 }

@@ -84,6 +84,8 @@ namespace KodluyoruzRehber
                         Console.WriteLine($"Eylem Bulunamadı!");
                         break;
                     case Durum.EylemHata:
+                        Console.WriteLine($"{Eylem.Aciklama} işlemini yaparken hata oluştu!");
+                        Durum = Durum.EylemListe;
                         break;
                     case Durum.Eylem:
                         try
@@ -99,13 +101,24 @@ namespace KodluyoruzRehber
                     case Durum.Cikis:
                         break;
                     default:
-                        EylemListele();
+                        var keyInfo = EylemListele();
+                        Console.WriteLine();
+                        char karakter = keyInfo.KeyChar;
+                        if (Eylemler.ContainsKey(karakter))
+                        {
+                            Eylem = Eylemler[karakter];
+                            Durum = Durum.Eylem;
+                        }
+                        else
+                        {
+                            Durum = Durum.EylemBulunamadi;
+                        }
                         break;
                 }
             } while (true);
         }
 
-        public void EylemListele()
+        public ConsoleKeyInfo EylemListele()
         {
             Console.WriteLine("Lütfen yapmak istediğiniz işlemi seçiniz :)");
             Console.WriteLine("*******************************************");
@@ -115,17 +128,9 @@ namespace KodluyoruzRehber
             }
             Console.WriteLine();
             Console.Write("Eylem Seciniz: ");
-            var girdi = Console.ReadKey();
-            var karakter = girdi.KeyChar;
-            if (Eylemler.ContainsKey(karakter))
-            {
-                Eylem = Eylemler[karakter];
-                Durum = Durum.Eylem;
-            }
-            else
-            {
-                Durum = Durum.EylemBulunamadi;
-            }
+            return Console.ReadKey();
+
+
 
         }
     }
